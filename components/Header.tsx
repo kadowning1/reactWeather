@@ -23,14 +23,10 @@ export const Header = () => {
           <button type='submit' className='rounded-full shadow-lg'>Get Weather</button>
         </p>
       </div>
-
-
       <MyImage
-
         src={'https://links.papareact.com/ua6'}
-
         width={200}
-
+        optimized={true}
       />
     </header>
   )

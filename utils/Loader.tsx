@@ -3,22 +3,25 @@ import Image from 'next/image'
 interface LoaderProps {
   src: string,
   width: number,
-  quality?: number
+  quality?: number,
+  optimized?: boolean,
+  alt?: string
 }
 
 const myLoader = ({ src, width, quality }: LoaderProps) => {
   return src
 }
 
-export const MyImage = ({ src, width, quality }: LoaderProps) => {
+export const MyImage = ({ src, width, quality, optimized, alt }: LoaderProps) => {
   return (
     <Image
       loader={myLoader}
       src={src}
-      alt="Picture of the author"
+      alt={alt}
       width={width}
       quality={quality}
       height={100}
+      unoptimized={optimized}
     />
   )
 }
