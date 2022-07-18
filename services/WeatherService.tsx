@@ -1,34 +1,37 @@
 import { Weather, WeatherLocation } from '../model/Weather';
 
-// const key: string = process.env.API_KEY as string;
-// if (key === undefined) {
-//   console.log('API_KEY is not defined');
-// }
+const key: string = '4af16e039a66300f9ce07ec031c6035e'
+if (key === undefined) {
+  throw new Error('No Open Weather API Key defined - ensure you set a variable called REACT_APP_OPEN_WEATHER_API_KEY')
+}
 
-const newKey = '225e9979cafa7faa49ef4c637d23e637'
-const keyQuery = `appid=${newKey}`
-const server = 'https://api.openweathermap.org/data/2.5';
+const keyQuery = `appid=${key}`
+const server = 'http://api.openweathermap.org/data/2.5';
 
-export async function searchLocation(term: string) {
-  const result = await fetch(`${server}/weather?q=${term}&${keyQuery}`).then((res) => res.json());
-
-  if (result.status === 404) return undefined;
-  if (result.status !== 200) console.log(`Error: ${result.status}`);
-  console.log(result);
-  // return await result.json();
-  return {
-    props: {
-      weather: result
-    }
+export async function searchLocation(term: string): Promise<WeatherLocation | undefined> {
+  const result = await (await fetch(`${server}/weather?q=${term}&${keyQuery}`)).json()
+  if (result.cod === '404') {
+    return undefined
+  } else {
+    console.log(result)
+    return result
   }
 }
 
 export async function readWeather(locationId: number): Promise<Weather> {
-  const current = await fetch(`${server}/weather?id=${locationId}&${keyQuery}&units=metric`).then((res) => res.json());
+  const current = await fetch(`${server}/weather?id=${locationId}&${keyQuery}&units=metric`);
 
-  if (current.status !== 200) console.log(`Error: ${current.status}`);
-  console.log(current.status);
+  if (current.status !== 200) console.log('Failed to read location data');
+
   return await current.json();
+}
+
+export async function readForecast(locationId: number): Promise<Weather[]> {
+  const forecast = await fetch(`${server}/forecast?id=${locationId}&${keyQuery}&units=metric&cnt=8`);
+
+  if (forecast.status !== 200) console.log('Failed to read location data');
+
+  return (await forecast.json()).list;
 }
 
 export function getIconUrl(code: string): string {

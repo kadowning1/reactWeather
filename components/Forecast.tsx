@@ -1,5 +1,4 @@
 import React, { FC, useState } from 'react';
-
 import { LocationSearch } from "./LocationSearch";
 import { LocationTable } from "./LocationTable";
 import { Weather, WeatherLocation } from "../model/Weather";
@@ -7,7 +6,11 @@ import { searchLocation } from "../services/WeatherService";
 import { ErrorAlert, WarningAlert } from "./Alerts";
 import { WeatherSummary } from "./WeatherSummary";
 
-const Forecast = ({ weather }: Weather) => {
+interface WeatherAppProps {
+  data: Weather
+}
+
+const Forecast = ({ data }: WeatherAppProps) => {
   const [locations, setLocations] = useState<WeatherLocation[]>([]);
   const [error, setError] = useState('');
   const [warning, setWarning] = useState('');
@@ -24,16 +27,14 @@ const Forecast = ({ weather }: Weather) => {
 
     if (!location) {
       setError(`No location found called '${term}'`);
-    }
-    // else if (locations.find(item => item.id == location.id)) {
-    //   setWarning(`Location '${term}' is already in the list.`);
-    // } 
-    else {
-      setLocations([location as any, ...locations]);
+    } else if (locations.find(item => item.id === location.id)) {
+      setWarning(`Location '${term}' is already in the list.`);
+    } else {
+      setLocations([location, ...locations]);
     }
   };
 
-  console.log(weather);
+  console.log(data)
 
   return (
     <div className="container">

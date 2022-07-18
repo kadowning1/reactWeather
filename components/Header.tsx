@@ -14,9 +14,7 @@ export const Header = () => {
             <button type='submit' className='rounded-full shadow-lg'>Get Weather</button>
           </p>
         </div>
-
       </div>
-
       <div className='flex flex-col items-center cursor-pointer group w-12 sm:w-20 hover:text-white'>
         <BadgeCheckIcon className='h-8 mb-1 group-hover:animate-bounce' />
         <p className='opacity-60 group-hover:opacity-100 tracking-widest'>

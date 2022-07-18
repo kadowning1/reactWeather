@@ -6,37 +6,19 @@ import Header from '../components/Header';
 import { WeatherLocation } from '../model/Weather';
 // import Image from 'next/image'
 import { Weather } from '../model/Weather';
-// import { searchLocation } from '../utils/Request';
+// import { searchLocation } from '../services/WeatherService';
 
 
 export default function Home({ weather }: any): JSX.Element {
+  console.log(weather)
   return (
-    <div className=''>
+    <div className='bg-green-600'>
       <Head>
         <title>Weather App</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Forecast weather={weather} main={weather} dt={0} />
+      <Header />
+      <Forecast data={weather} />
     </div>
   );
-}
-
-// export default Home;
-
-const newKey = '225e9979cafa7faa49ef4c637d23e637'
-const keyQuery = `appid=${newKey}`
-const server = 'https://api.openweathermap.org/data/2.5';
-
-export async function searchLocation(term: string) {
-  const result = await fetch(`${server}/weather?q=${term}&${keyQuery}`).then((res) => res.json());
-
-  // if (result.status === 404) return undefined;
-  // if (result.status !== 200) console.log(`Error: ${result.status}`);
-  // console.log(result);
-  // return await result.json();
-  return {
-    props: {
-      weather: result
-    }
-  }
 }
