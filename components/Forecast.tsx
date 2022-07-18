@@ -1,18 +1,16 @@
 import React, { FC, useState } from 'react';
+import { WeatherLocation } from '../model/Weather';
 import { LocationSearch } from "./LocationSearch";
 import { LocationTable } from "./LocationTable";
-import { WeatherLocation } from "../model/Weather";
+import { searchLocation } from "../services/WeatherService";
 import { ErrorAlert, WarningAlert } from "./Alerts";
-import { WeatherSummary } from './WeatherSummary';
-import { searchLocation } from '../utils/Request';
-import { Props } from '../pages';
+import { WeatherSummary } from "./WeatherSummary";
 
-const Forecast: FC = ({ data, zipCode }: Props) => {
+const Forecast: FC = () => {
   const [locations, setLocations] = useState<WeatherLocation[]>([]);
   const [error, setError] = useState('');
   const [warning, setWarning] = useState('');
-
-  console.log(data, zipCode)
+  const [currentLocation, setCurrentLocation] = useState<WeatherLocation | null>(null);
 
   const resetAlerts = () => {
     setError('');
@@ -34,13 +32,16 @@ const Forecast: FC = ({ data, zipCode }: Props) => {
 
   return (
     <div className="container">
-      <h1>Weather App</h1>
-      {JSON.stringify(data)}
+      <h1>Weather Forecast</h1>
 
       <LocationSearch onSearch={addLocation} />
       <ErrorAlert message={error} />
       <WarningAlert message={warning} />
-      <LocationTable locations={locations} />
+      <LocationTable locations={locations}
+        current={currentLocation}
+        onSelect={location => setCurrentLocation(location)} />
+
+      <WeatherSummary location={currentLocation} />
     </div>
   );
 };

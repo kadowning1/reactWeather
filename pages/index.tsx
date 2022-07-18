@@ -5,11 +5,13 @@ import Forecast from '../components/Forecast';
 import Header from '../components/Header';
 import { WeatherLocation } from '../model/Weather';
 // import Image from 'next/image'
-
+import { Weather } from '../model/Weather';
+// import { searchLocation } from '../utils/Request';
 
 export interface Props {
   data?: any,
-  zipCode?: number
+  zipCode?: number,
+  term?: string
 }
 
 export const Home: NextPage = ({ data }: Props) => {
@@ -22,41 +24,10 @@ export const Home: NextPage = ({ data }: Props) => {
       </Head>
       <Header />
       <div>
-        {/* <Forecast data={data as any} /> */}
+        <Forecast />
       </div>
     </div>
   )
 };
 
 export default Home;
-
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const key: string = process.env.REACT_APP_OPEN_WEATHER_API_KEY as string;
-  if (key === undefined) {
-    throw new Error('No Open Weather API Key defined - ensure you set a variable called REACT_APP_OPEN_WEATHER_API_KEY')
-  }
-  const keyQuery = `appid=${key}`
-  const server = 'http://api.openweathermap.org/data/2.5';
-
-
-  const apiLink = "https://api.openweathermap.org/data/2.5/weather?zip=90210,us&appid=225e9979cafa7faa49ef4c637d23e637";
-  const res = await fetch(apiLink);
-  const data = await res.json();
-
-  async function searchLocation(term: string): Promise<WeatherLocation | undefined> {
-    const result = await fetch(`${server}/weather?q=${term}&${keyQuery}`);
-
-    if (result.status === 404) return undefined;
-    if (result.status !== 200) throw new Error('Failed to read location data');
-
-    const data = await result.json();
-  }
-
-  return {
-    props: {
-      data: data,
-      zipCode: context.query.zipCode,
-    },
-  }
-};

@@ -1,8 +1,7 @@
 import React, { FC } from "react";
 import { Weather } from "../model/Weather";
-import { MyImage } from '../utils/Loader';
-// import { getIconUrl } from '../utils/Request';
-// import { convertUnixTimeToDate } from '../utils/Request';
+import { getIconUrl } from "../services/WeatherService";
+import { convertUnixTimeToDate } from "../services/TimeService";
 
 interface WeatherEntryProps {
   weather: Weather;
@@ -10,16 +9,15 @@ interface WeatherEntryProps {
 
 export const WeatherEntry: FC<WeatherEntryProps> = ({ weather }) =>
   <div>
-    {/* <div>{convertUnixTimeToDate(weather.dt).toLocaleTimeString()}</div> */}
+    <div>{convertUnixTimeToDate(weather.dt).toLocaleTimeString()}</div>
     <div>
       <strong>{weather.main.temp}°C</strong>
       <div>({weather.main.temp_min}°C / {weather.main.temp_max}°C)</div>
     </div>
     <div>Humidity: {weather.main.humidity}%</div>
-    {/* {weather.weather.map(condition =>
+    {weather.weather.map(condition =>
       <div key={condition.id}>
-        <MyImage src={getIconUrl(condition.icon)}
-         width={345} alt={condition.main} /> {condition.main} {condition.description}
+        <img src={getIconUrl(condition.icon)} alt={condition.main} /> {condition.main} {condition.description}
       </div>)
-    } */}
+    }
   </div>;
