@@ -12,5 +12,5 @@ export function alertComponent(className: string): FC<AlertProps> {
       : null;
 }
 
-export const ErrorAlert = alertComponent('alert-danger');
-export const WarningAlert = alertComponent('alert-warning');
+export const ErrorAlert = alertComponent('text-red-500 font-bold text-center text-xl p-5 rounded-lg');
+export const WarningAlert = alertComponent('text-red-500 font-bold text-center text-xl p-5 rounded-lg');

@@ -1,24 +1,33 @@
-import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { useState } from 'react';
 import Forecast from '../components/Forecast';
 import Header from '../components/Header';
-import { WeatherLocation } from '../model/Weather';
-// import Image from 'next/image'
-import { Weather } from '../model/Weather';
-// import { searchLocation } from '../services/WeatherService';
 
-
-export default function Home({ weather }: any): JSX.Element {
+export default function Home({ weather, results }: any): JSX.Element {
   console.log(weather)
+  console.log(results)
   return (
-    <div className='bg-green-600'>
+    <div className=''>
       <Head>
         <title>Weather App</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <Header />
+      {/* <Header /> */}
       <Forecast data={weather} />
     </div>
   );
+}
+
+
+export async function getServerSideProps() {
+
+  const APIkey: string = '225e9979cafa7faa49ef4c637d23e637'
+  const request = await fetch(`
+    https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=${APIkey}`
+  ).then((res) => res.json());
+
+  return {
+    props: {
+      results: request,
+    },
+  };
 }

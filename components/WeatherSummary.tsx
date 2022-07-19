@@ -29,14 +29,12 @@ export const WeatherSummary: FC<WeatherSummaryProps> = ({ location }) => {
   return (
     <div>
       <hr />
-      <h2>{location.name}</h2>
+      <div className='text-3xl text-center'>Current Weather in {location.name}</div>
       <WeatherEntry weather={weather} />
-
-      <h2>Forecast</h2>
       <div>
-        <ol style={({ whiteSpace: 'nowrap' })}>
+        <ol className='p-5 my-10 sm:grid md:grid-cols-4 xl:grid-cols-4 3xl:flex flex-wrap text-center border-r-emerald-700'>
           {forecast.map(timePoint =>
-            <li key={timePoint.dt}>
+            <li key={timePoint.dt} className='py-3'>
               <WeatherEntry weather={timePoint} />
             </li>
           )}
