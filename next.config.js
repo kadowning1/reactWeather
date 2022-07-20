@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['www.w3schools.com', "openweathermap.org"]
+    domains: ['www.w3schools.com', "openweathermap.org", 's3.amazonaws.com',],
   }
 }
 

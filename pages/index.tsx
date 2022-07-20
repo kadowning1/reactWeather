@@ -1,10 +1,10 @@
 import Head from 'next/head'
 import Forecast from '../components/Forecast';
 import Header from '../components/Header';
+import { WeatherEntryProps } from '../components/WeatherEntry';
 
-export default function Home({ weather, results }: any): JSX.Element {
+export default function Home({ weather }: WeatherEntryProps) {
   console.log(weather)
-  console.log(results)
   return (
     <div className=''>
       <Head>
@@ -18,16 +18,15 @@ export default function Home({ weather, results }: any): JSX.Element {
 }
 
 
-export async function getServerSideProps() {
+// export async function getServerSideProps() {
 
-  const APIkey: string = '225e9979cafa7faa49ef4c637d23e637'
-  const request = await fetch(`
-    https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=${APIkey}`
-  ).then((res) => res.json());
+//   const key: string = '4af16e039a66300f9ce07ec031c6035e'
+//   const request = await fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=${key}`
+//   ).then((res) => res.json());
 
-  return {
-    props: {
-      results: request,
-    },
-  };
-}
+//   return {
+//     props: {
+//       weather: request,
+//     },
+//   };
+// }

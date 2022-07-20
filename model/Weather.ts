@@ -24,6 +24,7 @@ export interface WeatherConditions {
   main: string;
   description: string;
   icon: string;
+  name: string;
 }
 
 export interface MainWeatherData {
@@ -36,6 +37,7 @@ export interface MainWeatherData {
 }
 
 export interface Weather {
+  name?: string;
   weather: WeatherConditions[];
   main: MainWeatherData;
   dt: number;

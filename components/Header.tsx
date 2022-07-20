@@ -10,9 +10,17 @@ import { Weather } from '../model/Weather';
 
 interface WeatherEntryProps {
   weather: Weather;
+  /**
+  * Is Drawer open
+  */
+  isOpen: boolean;
+  /**
+   * Toggle Drawer open or closed
+   */
+  toggle: () => void;
 }
 
-export const Header = ({ weather }: WeatherEntryProps) => {
+export const Header = ({ weather, isOpen, toggle }: WeatherEntryProps) => {
 
   return (
     <header className='flex items-center p-4 justify-evenly'>
@@ -23,10 +31,10 @@ export const Header = ({ weather }: WeatherEntryProps) => {
             React Weather App
           </p>
         </div>
-        <div className='flex flex-row items-center cursor-pointer group hover:text-white'>
+        <div className='flex flex-col items-center cursor-pointer group w-40 hover:text-white' onClick={toggle}>
           <BadgeCheckIcon className='h-8 mb-1 group-hover:animate-bounce' />
-          <p className='opacity-60 group-hover:opacity-100 tracking-widest'>
-            <button type='submit' className='rounded-full shadow-lg'>Get Weather</button>
+          <p className='tracking-widest'>
+            {'Get Weather'}
           </p>
         </div>
       </div>

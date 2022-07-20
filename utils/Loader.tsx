@@ -8,7 +8,7 @@ interface LoaderProps {
   alt?: string
 }
 
-const myLoader = ({ src, width, quality }: LoaderProps) => {
+const myLoader = ({ src }: LoaderProps) => {
   return src
 }
 

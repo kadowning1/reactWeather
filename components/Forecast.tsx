@@ -7,6 +7,7 @@ import { ErrorAlert, WarningAlert } from "./Alerts";
 import { WeatherSummary } from "./WeatherSummary";
 import Header from './Header';
 import { CurrentWeather } from './CurrentWeather';
+import SideDrawer from './SideDrawer';
 
 interface WeatherAppProps {
   data: Weather,
@@ -19,6 +20,9 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
   const [warning, setWarning] = useState('');
   const [currentLocation, setCurrentLocation] = useState<WeatherLocation | null>(null);
   const [userSearches, setUserSearch] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
 
   const resetAlerts = () => {
     setError('');
@@ -40,25 +44,21 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
     }
   };
 
-  console.log(data)
 
   return (
     <div className="">
-      <Header weather={data} />
+      <Header weather={data} isOpen={isOpen} toggle={toggle} />
       <LocationSearch onSearch={addLocation} />
       <ErrorAlert message={error} />
       <WarningAlert message={warning} />
-      <CurrentWeather weather={data} />
-      {/* {userSearch && */}
       <div>
-        <WeatherSummary location={currentLocation} />
-        <LocationTable locations={locations}
-          current={currentLocation}
-          onSelect={location => setCurrentLocation(location)} />
+        {userSearches && <LocationTable locations={locations} current={currentLocation} onSelect={setCurrentLocation} />}
       </div>
-      {/* } */}
-
-
+      <div className="flex flex-col justify-center items-center my-10">
+        <SideDrawer isOpen={isOpen} toggle={toggle} weather={data}>
+          <WeatherSummary location={currentLocation} />
+        </SideDrawer>
+      </div>
     </div>
   );
 };
