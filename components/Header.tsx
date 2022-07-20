@@ -1,4 +1,4 @@
-import { BadgeCheckIcon, SearchCircleIcon, SunIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, BookmarkAltIcon, BookmarkIcon, SearchCircleIcon, SunIcon } from '@heroicons/react/solid';
 import { MyImage } from '../utils/Loader';
 import HeaderItem from './HeaderItem';
 import { DatabaseIcon } from '@heroicons/react/solid';
@@ -32,10 +32,12 @@ export const Header = ({ weather, isOpen, toggle }: WeatherEntryProps) => {
           </p>
         </div>
         <div className='flex flex-col items-center cursor-pointer group w-40 hover:text-white' onClick={toggle}>
-          <BadgeCheckIcon className='h-8 mb-1 group-hover:animate-bounce' />
-          <p className='tracking-widest'>
-            {'Get Weather'}
+
+          <BookmarkIcon className='h-9 mb-1 group-hover:animate-bounce' />
+          <p className='tracking-widest text-center'>
+            {isOpen ? 'Close' : 'Open Recent Locations'}
           </p>
+
         </div>
       </div>
 

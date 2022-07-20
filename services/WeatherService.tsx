@@ -1,11 +1,15 @@
 import { Weather, WeatherLocation } from '../model/Weather';
 
-const key: string = '4af16e039a66300f9ce07ec031c6035e'
-if (key === undefined) {
-  throw new Error('No Open Weather API Key defined - ensure you set a variable called REACT_APP_OPEN_WEATHER_API_KEY')
+
+const API_KEY2: string = '225e9979cafa7faa49ef4c637d23e637'
+const API_KEY: string = process.env.API_KEY || API_KEY2;
+
+
+if (API_KEY === undefined) {
+  console.log('No Open Weather API API_KEY defined - ensure you set a variable called REACT_APP_OPEN_WEATHER_API_API_KEY')
 }
 
-const keyQuery = `appid=${key}`
+const keyQuery = `appid=${API_KEY}`
 const server = 'http://api.openweathermap.org/data/2.5';
 
 export async function searchLocation(term: string): Promise<WeatherLocation | undefined> {
@@ -13,7 +17,8 @@ export async function searchLocation(term: string): Promise<WeatherLocation | un
   if (result.cod === '404') {
     return undefined
   } else {
-    console.log(result)
+    console.log(result.error, 'result', result)
+    console.log(process.env)
     return result
   }
 }

@@ -1,3 +1,4 @@
+import { XIcon } from '@heroicons/react/solid';
 import React from 'react';
 import { Weather } from '../model/Weather';
 
@@ -26,7 +27,10 @@ export default function SideDrawer({ children, isOpen, toggle, weather }: SideDr
         }
       >
         <article className="relative w-screen max-w-lg pb-10 flex flex-col space-y-6 overflow-y-scroll h-full">
-          <header className="p-4 font-bold text-lg">{JSON.stringify(weather)}</header>
+          <button className="justify-end text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" onClick={toggle}>
+            <XIcon height={50} width={50} />
+
+          </button>
           {children}
         </article>
       </section>

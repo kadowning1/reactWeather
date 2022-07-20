@@ -5,14 +5,15 @@ interface LoaderProps {
   width: number,
   quality?: number,
   optimized?: boolean,
-  alt?: string
+  alt?: string,
+  className?: string
 }
 
 const myLoader = ({ src }: LoaderProps) => {
   return src
 }
 
-export const MyImage = ({ src, width, quality, optimized, alt }: LoaderProps) => {
+export const MyImage = ({ src, width, quality, optimized, alt, className }: LoaderProps) => {
   return (
     <Image
       loader={myLoader}
@@ -22,6 +23,7 @@ export const MyImage = ({ src, width, quality, optimized, alt }: LoaderProps) =>
       quality={quality}
       height={100}
       unoptimized={optimized}
+      className={className}
     />
   )
 }
