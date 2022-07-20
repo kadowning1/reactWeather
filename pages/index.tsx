@@ -10,6 +10,7 @@ export default function Home({ weather }: WeatherEntryProps) {
       <Head>
         <title>Weather App</title>
         <link rel='icon' href='/favicon.ico' />
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>
       {/* <Header /> */}
       <Forecast data={weather} />
