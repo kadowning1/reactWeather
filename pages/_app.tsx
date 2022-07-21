@@ -6,7 +6,9 @@ import { useRouter } from 'next/router'
 import { GoogleAnalytics, usePagesViews, usePageViews } from 'nextjs-google-analytics';
 
 import { event } from "nextjs-google-analytics";
-import * as ga from '../lib/ga'
+// import * as ga from '../lib/ga'
+import * as gtag from '../lib/ga'
+import Script from 'next/script';
 
 
 export function reportWebVitals({
@@ -33,24 +35,37 @@ const App = ({ Component, pageProps }: any) => {
 
   useEffect(() => {
     const handleRouteChange = (url: any) => {
-      ga.pageview(url)
+      gtag.pageview(url)
     }
-    //When the component is mounted, subscribe to router changes
-    //and log those page views
     router.events.on('routeChangeComplete', handleRouteChange)
-
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method
+    router.events.on('hashChangeComplete', handleRouteChange)
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
+      router.events.off('hashChangeComplete', handleRouteChange)
     }
   }, [router.events])
 
   return (
     <>
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+      />
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${gtag.GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
       <ThemeProvider enableSystem={true} attribute='class'>
-
-        <GoogleAnalytics strategy='lazyOnload' />
         <Component {...pageProps} />
       </ThemeProvider>
     </>
