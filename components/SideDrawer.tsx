@@ -10,7 +10,7 @@ interface SideDrawerProps {
 }
 
 export default function SideDrawer({ children, isOpen, toggle, weather }: SideDrawerProps) {
-  console.log(weather)
+  // console.log(weather)
   return (
     <main
       className={
@@ -22,7 +22,7 @@ export default function SideDrawer({ children, isOpen, toggle, weather }: SideDr
     >
       <section
         className={
-          " w-screen max-w-lg right-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  " +
+          "w-screen max-w-lg right-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform dark:bg-slate-600" +
           (isOpen ? " translate-x-0 " : " translate-x-full ")
         }
       >
