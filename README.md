@@ -1,5 +1,18 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# React Weather App
+
+### Tech Stack
+
+- NextJS
+- React
+- TailwindCSS
+- Storybook
+- Google Analytics
+- Typescript
+
+Note: Can also toggle night mode
+
 ## Getting Started
 
 First, run the development server:
