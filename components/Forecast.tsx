@@ -55,7 +55,7 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
       <ErrorAlert message={error} />
       <WarningAlert message={warning} />
       <div>
-        {userSearches && <LocationTable locations={locations} current={currentLocation} onSelect={setCurrentLocation} />}
+        {userSearches && <LocationTable locations={locations} current={currentLocation} onSelect={setCurrentLocation} toggle={toggle} setShowModal={setShowModal} />}
       </div>
       <div className="flex flex-col justify-center items-center my-10">
         <SideDrawer isOpen={isOpen} toggle={toggle} weather={data}>

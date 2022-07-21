@@ -58,7 +58,7 @@ const Modal = ({ modalTitle, modalNoButtonText, modalYesButtonText, children, is
                   {children}
                 </div>
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  <Link href="/google/analytics" onClick={onClick}>
+                  <Link href="contact" onClick={onClick}>
                     <button
                       className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
                       type="button"
