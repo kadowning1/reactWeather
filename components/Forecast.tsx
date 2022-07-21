@@ -8,6 +8,7 @@ import { WeatherSummary } from "./WeatherSummary";
 import Header from './Header';
 import { CurrentWeather } from './CurrentWeather';
 import SideDrawer from './SideDrawer';
+import Modal from './Modal';
 
 interface WeatherAppProps {
   data: Weather,
@@ -21,8 +22,10 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
   const [currentLocation, setCurrentLocation] = useState<WeatherLocation | null>(null);
   const [userSearches, setUserSearch] = useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
+  const toggleModal = () => setShowModal(!showModal);
 
   const resetAlerts = () => {
     setError('');
@@ -47,7 +50,7 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
 
   return (
     <div className="">
-      <Header weather={data} isOpen={isOpen} toggle={toggle} />
+      <Header weather={data} isOpen={isOpen} toggle={toggle} setShowModal={setShowModal} modalTitle={'Current Weather'} />
       <LocationSearch onSearch={addLocation} />
       <ErrorAlert message={error} />
       <WarningAlert message={warning} />
@@ -58,6 +61,9 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
         <SideDrawer isOpen={isOpen} toggle={toggle} weather={data}>
           <WeatherSummary location={currentLocation} />
         </SideDrawer>
+        <Modal isOpen={showModal} setShowModal={setShowModal} weather={data} toggle={toggleModal} modalTitle={'Current Weather'} modalYesButtonText={'Test'} modalNoButtonText={'Anayltics'}>
+          <WeatherSummary location={currentLocation} />
+        </Modal>
       </div>
     </div>
   );
