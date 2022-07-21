@@ -44,22 +44,24 @@ const App = ({ Component, pageProps }: any) => {
       router.events.off('hashChangeComplete', handleRouteChange)
     }
   }, [router.events])
+  const key: string = process.env.NEXT_PUBLIC_GA_ID || ''
+
 
   return (
     <>
       <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+        strategy="lazyOnload"
+        src={`https://www.googletagmanager.com/gtag/js?id=G-31NBZE0N2R`}
       />
       <Script
         id="gtag-init"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${gtag.GA_TRACKING_ID}', {
+            gtag('config', 'G-31NBZE0N2R', {
               page_path: window.location.pathname,
             });
           `,
@@ -73,3 +75,4 @@ const App = ({ Component, pageProps }: any) => {
 };
 
 export default App;
+
