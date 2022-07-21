@@ -20,7 +20,7 @@ export const LocationTable = ({ locations, onSelect, current, toggle, setShowMod
     <div className="flex flex-col justify-center items-center my-10">
       <div className='overflow-x-auto relative text-center'>
         <table className="w-300 text-sm text-gray-500 dark:text-gray-400 text-center">
-          <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
+          <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 dark:text-center'>
             <tr>
               <th className='py-3 px-6' scope='col'>Name</th>
               <th className='py-3 px-6' scope='col'>Current Temperature</th>
