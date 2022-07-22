@@ -62,7 +62,7 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
           <WeatherSummary location={currentLocation} />
         </SideDrawer>
         <Modal isOpen={showModal} setShowModal={setShowModal} weather={data} toggle={toggleModal} modalTitle={'Current Weather'} modalYesButtonText={'Test'} modalNoButtonText={'Anayltics'}>
-          <WeatherSummary location={currentLocation} />
+          <CurrentWeather data={data} location={currentLocation} />
         </Modal>
       </div>
     </div>

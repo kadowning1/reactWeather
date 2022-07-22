@@ -1,8 +1,8 @@
 import { Weather, WeatherLocation } from '../model/Weather';
 
 
-const API_KEY2: string = '225e9979cafa7faa49ef4c637d23e637'
-const API_KEY: string = process.env.API_KEY || API_KEY2;
+
+const API_KEY: string = process.env.NEXT_PUBLIC_API_KEY || '';
 
 
 if (API_KEY === undefined) {
@@ -17,8 +17,8 @@ export async function searchLocation(term: string): Promise<WeatherLocation | un
   if (result.cod === '404') {
     return undefined
   } else {
-    console.log(result.error, 'result', result)
-    console.log(process.env)
+    // console.log(result.error, 'result', result)
+    // console.log(process.env)
     return result
   }
 }

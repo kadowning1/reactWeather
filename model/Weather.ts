@@ -17,6 +17,17 @@ export interface WeatherLocation {
   id: number;
   name: string;
   main: MainWeather;
+  dt: number;
+  sys: {
+    type: number;
+    id: number;
+    country: string;
+    sunrise: number;
+    sunset: number;
+  };
+  timezone: number;
+  visibility: number;
+  weather: WeatherConditions[];
 }
 
 export interface WeatherConditions {

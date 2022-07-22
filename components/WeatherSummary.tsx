@@ -3,6 +3,7 @@ import { WeatherEntry } from "./WeatherEntry";
 import { Weather, WeatherLocation } from "../model/Weather";
 import { readForecast, readWeather } from "../services/WeatherService";
 import { CurrentWeather } from './CurrentWeather';
+import { convertUnixTimeToDate } from '../services/TimeService';
 
 interface WeatherSummaryProps {
   location: WeatherLocation | null;
@@ -29,8 +30,13 @@ export const WeatherSummary: FC<WeatherSummaryProps> = ({ location }) => {
 
   return (
     <div>
-      <div className='my-5'>
-        <CurrentWeather data={weather} />
+      <div className='my-5 text-center'>
+        {/* <CurrentWeather data={weather} /> */}
+        {JSON.stringify(weather)}
+        <p className='text-xl'>
+          Current Time: {convertUnixTimeToDate(weather.dt).toLocaleTimeString()}
+          {/* {console.log(weather.dt.toLocaleString())} */}
+        </p>
       </div>
       <div>
         <ol className='p-5 my-10 sm:grid-cols-4 md:grid-cols-4 xl:grid-cols-4 3xl:flex flex-wrap text-center border-r-emerald-700'>

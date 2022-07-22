@@ -38,12 +38,16 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
     const currentTheme = theme === "system" ? systemTheme : theme;
     if (currentTheme === "dark") {
       return (
-        <SunIcon className="w-10 h-10 text-yellow-500 " role="button" onClick={() => setTheme('light')} />
+        <div className='"text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5'>
+          <SunIcon className="w-10 h-10 text-yellow-500 " role="button" onClick={() => setTheme('light')} />
+        </div>
       )
     }
     else {
       return (
-        <MoonIcon className="w-10 h-10 text-gray-900 " role="button" onClick={() => setTheme('dark')} />
+        <div className='"text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5'>
+          <MoonIcon className="w-10 h-10 text-gray-900 " role="button" onClick={() => setTheme('dark')} />
+        </div>
       )
     }
   };
@@ -57,25 +61,25 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
             React Weather App
           </p>
         </div>
-        <div className='flex flex-col items-center cursor-pointer group w-40 hover:text-white' onClick={toggle}>
+        {/* <div className='flex flex-col items-center cursor-pointer group w-40 hover:text-white' onClick={toggle}>
 
           <BookmarkIcon className='h-9 mb-1 group-hover:animate-bounce' />
           <p className='tracking-widest text-center'>
             {isOpen ? 'Close' : 'Open Recent Locations'}
           </p>
 
-        </div>
+        </div> */}
         {renderThemeChanger()}
       </div>
       <div>
-        <button
+        {/* <button
           className="bg-blue-200 text-black active:bg-blue-500 
       font-bold px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
           type="button"
           onClick={() => setShowModal(true)}
         >
           {modalTitle}
-        </button>
+        </button> */}
       </div>
 
     </header>

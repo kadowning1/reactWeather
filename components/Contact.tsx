@@ -1,6 +1,7 @@
 import { SetStateAction, useState } from "react";
 // import Page from "../components/Page";
 import { event } from "nextjs-google-analytics";
+import Link from 'next/link';
 
 export function Contact() {
   const [message, setMessage] = useState("");
@@ -29,7 +30,12 @@ export function Contact() {
           <span>Message:</span>
           <textarea onChange={handleInput} value={message} />
         </label>
+
         <button type="submit">submit</button>
+
+        <Link href="/">
+          <button type="button">back to home</button>
+        </Link>
       </form>
     </>
 
