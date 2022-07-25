@@ -3,7 +3,7 @@ import { WeatherEntry } from "./WeatherEntry";
 import { Weather, WeatherLocation } from "../model/Weather";
 import { readForecast, readWeather } from "../services/WeatherService";
 import { CurrentWeather } from './CurrentWeather';
-import { convertUnixTimeToDate } from '../services/TimeService';
+import { convertCelciusToFahrenheit, convertUnixTimeToDate } from '../services/TimeService';
 
 interface WeatherSummaryProps {
   location: WeatherLocation | null;
@@ -28,14 +28,29 @@ export const WeatherSummary: FC<WeatherSummaryProps> = ({ location }) => {
 
   if (!location || !weather || !forecast) return null;
 
+  const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
+
   return (
     <div>
-      <div className='my-5 text-center'>
-        {/* <CurrentWeather data={weather} /> */}
-        {JSON.stringify(weather)}
+      <div className='text-center'>
+        <h1 className='text-3xl font-bold'>{location.name}</h1>
+        <p className='text-sm'>{regionNamesInEnglish.of(location.sys.country)}</p>
+      </div>
+      <div className='flex flex-col justify-center items-center'>
         <p className='text-xl'>
           Current Time: {convertUnixTimeToDate(weather.dt).toLocaleTimeString()}
-          {/* {console.log(weather.dt.toLocaleString())} */}
+        </p>
+        <p className='text-xl'>
+          Current Temperature: {convertCelciusToFahrenheit(weather.main.temp).toFixed(2)}
+        </p>
+        <p className='text-xl'>
+          Min Temperature: {convertCelciusToFahrenheit(weather.main.temp_min).toFixed(2)}
+        </p>
+        <p className='text-xl'>
+          Max Temperature: {convertCelciusToFahrenheit(weather.main.temp_max).toFixed(2)}
+        </p>
+        <p className='text-xl'>
+          Humidity: {weather.main.humidity}
         </p>
       </div>
       <div>

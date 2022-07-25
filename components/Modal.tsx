@@ -44,9 +44,9 @@ const Modal = ({ modalTitle, modalNoButtonText, modalYesButtonText, children, is
         <>
           <div className="flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-                  <h3 className="text-3xl font=semibold">{modalTitle}</h3>
+              <div className="border-0 rounded-lg shadow-lg relative flex dark:bg-slate-500 flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t bg-slate-500">
+                  <h3 className="text-3xl font-semibold">{modalTitle}</h3>
                   <button
                     className="bg-transparent border-0 text-black float-right"
                     onClick={() => setShowModal(false)}
@@ -57,10 +57,10 @@ const Modal = ({ modalTitle, modalNoButtonText, modalYesButtonText, children, is
                 <div className="flex-1 p-5 overflow-y-auto">
                   {children}
                 </div>
-                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b bg-slate-600">
                   <Link href="contact" onClick={onClick}>
                     <button
-                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
+                      className="text-slate-700 dark:text-white bg-white background-transparent dark:bg-slate-700  font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                       type="button"
                       onClick={() => setShowModal(false)}
                     >
@@ -68,7 +68,7 @@ const Modal = ({ modalTitle, modalNoButtonText, modalYesButtonText, children, is
                     </button>
                   </Link>
                   <button
-                    className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
+                    className="text-slate-700 bg-white dark:text-white background-transparent dark:bg-slate-700  font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
                     type="button"
                     onClick={() => setShowModal(false)}
                   >

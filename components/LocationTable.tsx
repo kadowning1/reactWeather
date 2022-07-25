@@ -42,15 +42,12 @@ export const LocationTable = ({ locations, onSelect, current, toggle, setShowMod
                     type="button"
                     onClick={() => setShowModal(true)}
                   >
-                    {'modalTitle'}
+                    {location.weather?.map(weather => weather.main).join(', ')}
                   </button>
                 </td>
                 <td>
                   <div className='flex flex-col items-center cursor-pointer group w-40 hover:text-white' onClick={toggle}>
-                    <BookmarkIcon className='h-9 mb-1 group-hover:animate-bounce' />
-                    <p className='tracking-widest text-center'>
-                      Open Recent Locations
-                    </p>
+                    <p className='tracking-widest text-center text-xs text-gray-500 dark:text-gray-400'>EXTENDED FORECAST FOR {location.name}</p>
                   </div>
                 </td>
               </tr>

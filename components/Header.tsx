@@ -53,7 +53,8 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
   };
 
   return (
-    <header className='flex items-center p-4 justify-evenly'>
+    <header className='flex items-center p-4 justify-between'>
+
       <div className='flex grid-cols-2'>
         <div className=' hover:text-white px-4'>
           {/* <CurrentTime weather={weather} /> */}
@@ -61,27 +62,10 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
             React Weather App
           </p>
         </div>
-        {/* <div className='flex flex-col items-center cursor-pointer group w-40 hover:text-white' onClick={toggle}>
-
-          <BookmarkIcon className='h-9 mb-1 group-hover:animate-bounce' />
-          <p className='tracking-widest text-center'>
-            {isOpen ? 'Close' : 'Open Recent Locations'}
-          </p>
-
-        </div> */}
+      </div>
+      <div className='flex grid-flow-row'>
         {renderThemeChanger()}
       </div>
-      <div>
-        {/* <button
-          className="bg-blue-200 text-black active:bg-blue-500 
-      font-bold px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-          type="button"
-          onClick={() => setShowModal(true)}
-        >
-          {modalTitle}
-        </button> */}
-      </div>
-
     </header>
   )
 };
