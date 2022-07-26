@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { LocationSearch } from "./LocationSearch";
 import { LocationTable } from "./LocationTable";
 import { Weather, WeatherLocation } from "../model/Weather";
@@ -23,9 +23,12 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
   const [userSearches, setUserSearch] = useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [lat, setLat] = useState([]);
+  const [long, setLong] = useState([Number]);
 
   const toggle = () => setIsOpen(!isOpen);
   const toggleModal = () => setShowModal(!showModal);
+
 
   const resetAlerts = () => {
     setError('');

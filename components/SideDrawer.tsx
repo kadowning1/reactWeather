@@ -12,7 +12,7 @@ interface SideDrawerProps {
 export default function SideDrawer({ children, isOpen, toggle, weather }: SideDrawerProps) {
   // console.log(weather)
   return (
-    <main
+    <div
       className={
         " fixed overflow-hidden z-10 bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out " +
         (isOpen
@@ -20,24 +20,24 @@ export default function SideDrawer({ children, isOpen, toggle, weather }: SideDr
           : " transition-all delay-500 opacity-0 translate-x-full  ")
       }
     >
-      <section
+      <div
         className={
           "w-screen max-w-lg right-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform dark:bg-slate-600" +
           (isOpen ? " translate-x-0 " : " translate-x-full ")
         }
       >
-        <article className="relative w-screen max-w-lg pb-10 flex flex-col space-y-6 overflow-y-scroll h-full">
+        <div className="relative w-screen max-w-lg pb-10 flex flex-col space-y-6 overflow-y-scroll h-full">
           <button className="justify-end text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center" onClick={toggle}>
             <XIcon height={50} width={50} />
 
           </button>
           {children}
-        </article>
-      </section>
-      <section
+        </div>
+      </div>
+      <div
         className=" w-screen h-full cursor-pointer "
         onClick={toggle}
-      ></section>
-    </main>
+      ></div>
+    </div>
   );
 }

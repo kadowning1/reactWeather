@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Weather, WeatherLocation } from "../model/Weather";
 import { getIconUrl } from "../services/WeatherService";
-import { convertUnixTimeToDate } from '../services/TimeService';
+import { convertCelciusToFahrenheit, convertKelvinToFahrenheit, convertUnixTimeToDate } from '../services/TimeService';
 import { MyImage } from '../utils/Loader';
 import { WeatherEntryProps } from './WeatherEntry';
 
@@ -31,13 +31,13 @@ export const CurrentWeather = ({ data, location }: WeatherAppProps) => {
         <div className="flex flex-col justify-between p-4 leading-normal">
           <div className="mb-8">
             <p className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              {location?.main?.temp}°C
+              {convertKelvinToFahrenheit(location?.main?.temp as number).toFixed(0)}°F
             </p>
           </div>
           <div className="flex items-center">
 
             <div className="text-sm">
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">({location?.main?.temp_min}°C / {location?.main?.temp_max}°C)</p>
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Low {convertKelvinToFahrenheit(location?.main?.temp_min as number).toFixed(0)}°F / High {convertKelvinToFahrenheit(location?.main?.temp_max as number).toFixed(0)}°F</p>
               <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Humidity: {location?.main?.humidity}%</p>
               <p className='font-normal text-gray-700 dark:text-gray-400'>Current Time: {convertUnixTimeToDate(location?.dt as number).toLocaleTimeString()}</p>
             </div>

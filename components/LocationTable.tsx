@@ -17,9 +17,9 @@ export const LocationTable = ({ locations, onSelect, current, toggle, setShowMod
   }
 
   return (
-    <div className="flex flex-col justify-center items-center my-10">
-      <div className='overflow-x-auto relative text-center'>
-        <table className="w-300 text-sm text-gray-500 dark:text-gray-400 text-center">
+    <div className="flex md:flex-col flex-row justify-center items-center my-10">
+      <div className='relative text-center overflow-x-auto'>
+        <table className="md:w-300 w-1/4  text-sm text-gray-500 dark:text-gray-400 text-center">
           <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 dark:text-center'>
             <tr>
               <th className='py-3 px-6' scope='col'>Name</th>

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Weather } from "../model/Weather";
 import { getIconUrl } from "../services/WeatherService";
-import { convertUnixTimeToDate } from '../services/TimeService';
+import { convertCelciusToFahrenheit, convertUnixTimeToDate } from '../services/TimeService';
 import { MyImage } from '../utils/Loader';
 
 export interface WeatherEntryProps {
@@ -17,7 +17,9 @@ export const WeatherEntry: FC<WeatherEntryProps> = ({ weather }) => {
       <div className='pt-3 block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'>
         <div className='text-2xl pb-2'>{convertUnixTimeToDate(weather.dt).toLocaleTimeString()}</div>
         <div>
-          <strong>{weather.main.temp}°C</strong>
+          <strong>
+            {convertCelciusToFahrenheit(weather.main.temp).toFixed(2)}
+          </strong>
           <div>({weather.main.temp_min}°C / {weather.main.temp_max}°C)</div>
         </div>
         <div>Humidity: {weather.main.humidity}%</div>
