@@ -10,7 +10,7 @@ import { CurrentWeather } from './CurrentWeather';
 import SideDrawer from './SideDrawer';
 import Modal from './Modal';
 import Link from 'next/link';
-import { useGeolocation } from 'react-use';
+import { useBattery, useGeolocation, useLocation } from 'react-use';
 
 interface WeatherAppProps {
   data: Weather,
@@ -33,7 +33,10 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
 
   const state = useGeolocation();
   // console.log(state, 'state');
-  console.log(state.latitude);
+  console.log(state);
+
+  const location = useBattery();
+  console.log(location, 'location');
 
 
   const resetAlerts = () => {
