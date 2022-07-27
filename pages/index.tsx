@@ -41,10 +41,10 @@ export default function Home({ weather }: WeatherEntryProps, { request }: any) {
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const key: string = 'AIzaSyDoRHZyX50lAFw5-YqQVYzil0efbP6dS9U'
+  // const key: string = 'AIzaSyDoRHZyX50lAFw5-YqQVYzil0efbP6dS9U'
 
   const secondKey : string = process.env.NEXT_PUBLIC_GOOGLE_API_KEY || '';
-  const request = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?place_id=ChIJeRpOeF67j4AR9ydy_PIzPuM&key=${key || secondKey}`
+  const request = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?place_id=ChIJeRpOeF67j4AR9ydy_PIzPuM&key=${secondKey}`
   ).then((res) => res.json());
 
   return {

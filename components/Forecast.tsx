@@ -10,6 +10,7 @@ import { CurrentWeather } from './CurrentWeather';
 import SideDrawer from './SideDrawer';
 import Modal from './Modal';
 import Link from 'next/link';
+import { useGeolocation } from 'react-use';
 
 interface WeatherAppProps {
   data: Weather,
@@ -29,6 +30,10 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
 
   const toggle = () => setIsOpen(!isOpen);
   const toggleModal = () => setShowModal(!showModal);
+
+  const state = useGeolocation();
+  // console.log(state, 'state');
+  console.log(state.latitude);
 
 
   const resetAlerts = () => {
@@ -55,6 +60,7 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
   return (
     <div className="">
       <Header weather={data} isOpen={isOpen} toggle={toggle} setShowModal={setShowModal} modalTitle={'Current Weather'} />
+      Latitude = {state.latitude}
       <LocationSearch onSearch={addLocation} />
       <ErrorAlert message={error} />
       <WarningAlert message={warning} />
