@@ -9,6 +9,7 @@ import Header from './Header';
 import { CurrentWeather } from './CurrentWeather';
 import SideDrawer from './SideDrawer';
 import Modal from './Modal';
+import Link from 'next/link';
 
 interface WeatherAppProps {
   data: Weather,
@@ -68,6 +69,11 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
           <CurrentWeather data={data} location={currentLocation} />
         </Modal>
       </div>
+      <Link href="forecast/location">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Test
+        </button>
+      </Link>
     </div>
   );
 };
