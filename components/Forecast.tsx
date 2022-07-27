@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { LocationSearch } from "./LocationSearch";
 import { LocationTable } from "./LocationTable";
 import { Weather, WeatherLocation } from "../model/Weather";
-import { searchLocation } from "../services/WeatherService";
+import { getLatandLong, searchLocation } from "../services/WeatherService";
 import { ErrorAlert, WarningAlert } from "./Alerts";
 import { WeatherSummary } from "./WeatherSummary";
 import Header from './Header';
@@ -25,8 +25,8 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
   const [userSearches, setUserSearch] = useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [lat, setLat] = useState([]);
-  const [long, setLong] = useState([Number]);
+  const [lat, setLat] = useState(0);
+  const [long, setLong] = useState(0);
 
   const toggle = () => setIsOpen(!isOpen);
   const toggleModal = () => setShowModal(!showModal);
@@ -35,9 +35,16 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
   // console.log(state, 'state');
   console.log(state);
 
-  const location = useBattery();
-  console.log(location, 'location');
-
+  useEffect(() => {
+    console.log('test');
+    if (state.error) {
+      setError(state.error.message);
+    }
+    if (state.accuracy !== undefined || state.accuracy !== null) {
+      setLat(state.latitude as number);
+      setLong(state.longitude as number);
+    }
+  }, [state]);
 
   const resetAlerts = () => {
     setError('');
@@ -59,12 +66,31 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
     }
   };
 
+  const setGeoLocation = async () => {
+    resetAlerts();
+    // setLat(state.latitude || 0);
+    // setLong(state.longitude || 0);
+    const location = await getLatandLong(lat, long);
+    console.log(location, 'location');
+    console.log(lat, 'lat');
+    console.log(long, 'long');
+    if (!location) {
+      setError(`No location found at ${state.latitude},${state.longitude}. Please try again.`);
+    } else if (locations.find(item => item.id === location.id)) {
+      setWarning(`Location '${state.latitude},${state.longitude}' is already in the list.`);
+    } else {
+      setLocations([location, ...locations]);
+      setUserSearch(true);
+    }
+  }
+
+
 
   return (
     <div className="">
       <Header weather={data} isOpen={isOpen} toggle={toggle} setShowModal={setShowModal} modalTitle={'Current Weather'} />
       Latitude = {state.latitude}
-      <LocationSearch onSearch={addLocation} />
+      <LocationSearch onSearch={addLocation} setGeolocation={setGeoLocation} />
       <ErrorAlert message={error} />
       <WarningAlert message={warning} />
       <div>
@@ -79,10 +105,15 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
         </Modal>
       </div>
       <Link href="forecast/location">
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <a className="text-center text-2xl font-bold my-10">
+          View Forecast
+        </a>
+      </Link>
+      <div className="flex flex-col justify-center items-center my-10">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={setGeoLocation}>
           Test
         </button>
-      </Link>
+      </div>
     </div>
   );
 };

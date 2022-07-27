@@ -21,6 +21,17 @@ export async function searchLocation(term: string): Promise<WeatherLocation | un
   }
 }
 
+export async function getLatandLong(lat: number, long: number): Promise<WeatherLocation | undefined> {
+  const result = await (await fetch(`${server}/weather?lat=${lat}&lon=${long}&${keyQuery}`)).json()
+  if (result.cod === '404') {
+    return undefined
+  } else {
+    // console.log(result.error, 'result', result)
+    // console.log(process.env)
+    return result
+  }
+}
+
 export async function readWeather(locationId: number): Promise<Weather> {
   const current = await fetch(`${server}/weather?id=${locationId}&${keyQuery}&units=metric`);
 
