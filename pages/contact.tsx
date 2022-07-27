@@ -1,38 +1,43 @@
-import { Component } from 'react'
-// import Page from '../components/Page'
+import { useState } from 'react'
+import { event } from "nextjs-google-analytics";
+
 
 import * as ga from '../lib/ga'
+import Link from 'next/link';
 
-export default class Contact extends Component {
-  state = { message: '' }
+export const Contact = () => {
+  const [message, setMessage] = useState("");
 
-  handleInput = (e: { target: { value: any } }) => {
-    this.setState({ message: e.target.value })
-  }
+  const handleInput = (e: { target: { value: any; }; }) => {
+    setMessage(e.target.value);
+  };
 
-  handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault()
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
 
-    gtag('event', 'submit_form', {
-      category: 'Contact',
-      label: this.state.message,
-    })
+    event("submit_form", {
+      category: "Contact",
+      label: message,
+    });
 
-    this.setState({ message: '' })
-  }
+    setMessage("");
+  };
 
-  render() {
     return (
       <>
         <h1>This is the Contact page</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <label>
             <span>Message:</span>
-            <textarea onChange={this.handleInput} value={this.state.message} />
+            <textarea onChange={handleInput} value={message} />
           </label>
-          <button type="submit">submit</button>
+          <Link href={'/'}>
+            <button type="submit">submit</button>
+          </Link>
+          
         </form>
       </>
-    )
-  }
+    );
 }
+
+export default Contact;

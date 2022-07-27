@@ -30,7 +30,7 @@ export function reportWebVitals({
 }
 
 const App = ({ Component, pageProps }: any) => {
-
+  usePagesViews();
   const router = useRouter()
 
   useEffect(() => {
@@ -68,6 +68,7 @@ const App = ({ Component, pageProps }: any) => {
         }}
       />
       <ThemeProvider enableSystem={true} attribute='class'>
+        <GoogleAnalytics />
         <Component {...pageProps} />
       </ThemeProvider>
     </>

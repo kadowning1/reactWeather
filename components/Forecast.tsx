@@ -32,19 +32,16 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
   const toggleModal = () => setShowModal(!showModal);
 
   const state = useGeolocation();
-  // console.log(state, 'state');
-  console.log(state);
+  const { latitude, longitude } = state;
 
   useEffect(() => {
-    console.log('test');
-    if (state.error) {
-      setError(state.error.message);
+
+    if (latitude && longitude) {
+      setLat(latitude);
+      setLong(longitude);
     }
-    if (state.accuracy !== undefined || state.accuracy !== null) {
-      setLat(state.latitude as number);
-      setLong(state.longitude as number);
-    }
-  }, [state]);
+  }, [latitude, longitude]);
+
 
   const resetAlerts = () => {
     setError('');
@@ -71,9 +68,9 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
     // setLat(state.latitude || 0);
     // setLong(state.longitude || 0);
     const location = await getLatandLong(lat, long);
-    console.log(location, 'location');
-    console.log(lat, 'lat');
-    console.log(long, 'long');
+    // console.log(location, 'location');
+    // console.log(lat, 'lat');
+    // console.log(long, 'long');
     if (!location) {
       setError(`No location found at ${state.latitude},${state.longitude}. Please try again.`);
     } else if (locations.find(item => item.id === location.id)) {
@@ -90,7 +87,7 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
     <div className="">
       <Header weather={data} isOpen={isOpen} toggle={toggle} setShowModal={setShowModal} modalTitle={'Current Weather'} />
       Latitude = {state.latitude}
-      <LocationSearch onSearch={addLocation} setGeolocation={setGeoLocation} />
+      <LocationSearch onSearch={addLocation} setGeolocation={setGeoLocation} state={state} />
       <ErrorAlert message={error} />
       <WarningAlert message={warning} />
       <div>

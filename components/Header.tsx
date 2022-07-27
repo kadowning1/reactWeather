@@ -8,6 +8,7 @@ import { CurrentTime } from './CurrentTime';
 import { Weather } from '../model/Weather';
 import { useTheme } from 'next-themes';
 // import weather.jpeg from '../public/weather.jpeg';
+import { event } from 'nextjs-google-analytics';
 
 interface WeatherEntryProps {
   weather: Weather;
@@ -33,20 +34,39 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
     setMounted(true);
   }, [])
 
+
+
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    console.log("message");
+    event("submit_form", {
+      category: "Contact",
+      label: 'theme',
+      value: 40,
+    });
+
+    if (theme === 'light') {
+      setTheme('dark');
+    }
+    else {
+      setTheme('light');
+    }
+  };
+
   const renderThemeChanger = () => {
     if (!mounted) return null;
     const currentTheme = theme === "system" ? systemTheme : theme;
     if (currentTheme === "dark") {
       return (
         <div className='"text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5'>
-          <SunIcon className="w-10 h-10 text-yellow-500 " role="button" onClick={() => setTheme('light')} />
+          <SunIcon className="w-10 h-10 text-yellow-500 " role="button" onClick={handleSubmit} />
         </div>
       )
     }
     else {
       return (
         <div className='"text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5'>
-          <MoonIcon className="w-10 h-10 text-gray-900 " role="button" onClick={() => setTheme('dark')} />
+          <MoonIcon className="w-10 h-10 text-gray-900 " role="button" onClick={handleSubmit} />
         </div>
       )
     }
