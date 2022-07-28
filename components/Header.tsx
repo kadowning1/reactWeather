@@ -7,7 +7,9 @@ import { useEffect, useState } from 'react';
 import { CurrentTime } from './CurrentTime';
 import { Weather } from '../model/Weather';
 import { useTheme } from 'next-themes';
-import {event} from 'nextjs-google-analytics';
+import { event } from 'nextjs-google-analytics';
+import { event_category, event_click } from '../lib/ga';
+import { useRouter } from 'next/router';
 
 
 interface WeatherEntryProps {
@@ -30,10 +32,27 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
 
   const [mounted, setMounted] = useState(false);
 
+  const router = useRouter();
+
   useEffect(() => {
     setMounted(true);
   }, [])
 
+  useEffect(() => {
+    const handleRouteChange = (category: string,
+      action: string,
+      label: string,
+      value: number,
+      search_term: string) => {
+      event_click(category, action, label='header-click', value, search_term=weather as unknown as string);
+      console.log('category', category)
+    }
+
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events, weather])
 
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {

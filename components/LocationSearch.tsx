@@ -1,5 +1,7 @@
-import React, { FC, useState } from "react";
+import { useRouter } from 'next/router';
+import React, { FC, useEffect, useState } from "react";
 import { GeoLocationSensorState } from 'react-use/lib/useGeolocation';
+import { event_click } from '../lib/ga';
 
 
 interface LocationSearchProps {
@@ -14,6 +16,22 @@ export const LocationSearch = ({ onSearch, hasSearched, setGeolocation, state }:
   const disableSearch = locationSearch.trim() === '';
   const [message, setMessage] = useState('');
 
+  const router = useRouter();
+
+
+  const handleRouteChange = (category: string,
+    action: string,
+    label: string,
+    value: number,
+    search_term: string) => {
+    event_click(category, action, label = 'header-click', value, search_term = locationSearch || 'search-bar');
+    console.log('category', category);
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }
+
   const addLocation = () => {
     onSearch(locationSearch);
     setMessage(locationSearch);
@@ -22,6 +40,7 @@ export const LocationSearch = ({ onSearch, hasSearched, setGeolocation, state }:
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+    handleRouteChange('search', 'search', 'search-bar', 0, locationSearch);
     addLocation();
     setMessage("");
   };
