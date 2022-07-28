@@ -11,6 +11,7 @@ import SideDrawer from './SideDrawer';
 import Modal from './Modal';
 import Link from 'next/link';
 import { useBattery, useGeolocation, useLocation } from 'react-use';
+import Navbar from './Navbar';
 
 interface WeatherAppProps {
   data: Weather,
@@ -85,6 +86,7 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
 
   return (
     <div className="">
+      <Navbar />
       <Header weather={data} isOpen={isOpen} toggle={toggle} setShowModal={setShowModal} modalTitle={'Current Weather'} />
       Latitude = {state.latitude}
       <LocationSearch onSearch={addLocation} setGeolocation={setGeoLocation} state={state} />
