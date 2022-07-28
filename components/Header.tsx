@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import { CurrentTime } from './CurrentTime';
 import { Weather } from '../model/Weather';
 import { useTheme } from 'next-themes';
-// import weather.jpeg from '../public/weather.jpeg';
-import { event } from 'nextjs-google-analytics';
+import {event} from 'nextjs-google-analytics';
+
 
 interface WeatherEntryProps {
   weather: Weather;
@@ -38,18 +38,20 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    console.log("message");
-    event("submit_form", {
-      category: "Contact",
-      label: 'theme',
-      value: 40,
-    });
 
     if (theme === 'light') {
       setTheme('dark');
+      event("submit_form", {
+        category: "Contact",
+        label: 'Switch to Dark Mode',
+      });
     }
     else {
       setTheme('light');
+      event("submit_form", {
+        category: "Contact",
+        label: 'Switch to Dark Mode',
+      });
     }
   };
 

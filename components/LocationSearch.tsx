@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import { GeoLocationSensorState } from 'react-use/lib/useGeolocation';
-// import { GeoLocation } from '../model/Weather';
-import { event } from "nextjs-google-analytics";
+
 
 interface LocationSearchProps {
   onSearch: (search: string) => void;
@@ -15,8 +14,6 @@ export const LocationSearch = ({ onSearch, hasSearched, setGeolocation, state }:
   const disableSearch = locationSearch.trim() === '';
   const [message, setMessage] = useState('');
 
-  // console.log(state, 'location')
-
   const addLocation = () => {
     onSearch(locationSearch);
     setMessage(locationSearch);
@@ -25,14 +22,7 @@ export const LocationSearch = ({ onSearch, hasSearched, setGeolocation, state }:
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    console.log('handleSubmit')
     addLocation();
-    event("submit_form", {
-      category: "Contact",
-      label: message,
-      value: 40,
-    });
-    console.log("message search", message);
     setMessage("");
   };
 

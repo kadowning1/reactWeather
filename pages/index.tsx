@@ -13,7 +13,6 @@ export default function Home({ weather }: WeatherEntryProps) {
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>
       <div className=''>
-        {/* <Header /> */}
         <Forecast data={weather} />
         <Footer />
       </div>

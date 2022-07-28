@@ -1,6 +1,5 @@
 import { SetStateAction, useState } from "react";
 // import Page from "../components/Page";
-import { event } from "nextjs-google-analytics";
 import Link from 'next/link';
 
 export function Contact() {
@@ -12,12 +11,6 @@ export function Contact() {
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-
-    event("submit_form", {
-      category: "Contact",
-      label: message,
-    });
-
     setMessage("");
   };
 

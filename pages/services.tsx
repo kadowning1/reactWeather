@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import { useState } from 'react';
-import { event } from 'nextjs-google-analytics';
+
 import Link from 'next/link';
 
 export const Services = () => {
@@ -10,12 +10,6 @@ export const Services = () => {
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-
-    event("submit_form", {
-      category: "Services",
-      label: userName,
-    });
-
     setUserName("");
     setUserPassword("");
   };
