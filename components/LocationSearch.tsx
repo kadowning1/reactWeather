@@ -22,10 +22,9 @@ export const LocationSearch = ({ onSearch, hasSearched, setGeolocation, state }:
   const handleRouteChange = (category: string,
     action: string,
     label: string,
-    value: number,
     search_term: string) => {
-    event_click(category, action, label = 'header-click', value, search_term = locationSearch || 'search-bar');
-    console.log('category', category);
+    event_click(category, action, label = 'header-click', search_term = locationSearch || 'search-bar');
+  
     router.events.on('routeChangeComplete', handleRouteChange)
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
@@ -40,7 +39,7 @@ export const LocationSearch = ({ onSearch, hasSearched, setGeolocation, state }:
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    handleRouteChange('search', 'search', 'search-bar', 0, locationSearch);
+    handleRouteChange('search', 'search-field', 'search-bar', locationSearch);
     addLocation();
     setMessage("");
   };

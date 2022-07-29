@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LocationSearch } from "./LocationSearch";
 import { LocationTable } from "./LocationTable";
 import { Weather, WeatherLocation } from "../model/Weather";
@@ -10,8 +10,7 @@ import { CurrentWeather } from './CurrentWeather';
 import SideDrawer from './SideDrawer';
 import Modal from './Modal';
 import Link from 'next/link';
-import { useBattery, useGeolocation, useLocation } from 'react-use';
-import Navbar from './Navbar';
+import { useGeolocation } from 'react-use';
 
 interface WeatherAppProps {
   data: Weather,
@@ -66,12 +65,7 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
 
   const setGeoLocation = async () => {
     resetAlerts();
-    // setLat(state.latitude || 0);
-    // setLong(state.longitude || 0);
     const location = await getLatandLong(lat, long);
-    // console.log(location, 'location');
-    // console.log(lat, 'lat');
-    // console.log(long, 'long');
     if (!location) {
       setError(`No location found at ${state.latitude},${state.longitude}. Please try again.`);
     } else if (locations.find(item => item.id === location.id)) {
@@ -86,9 +80,7 @@ const Forecast = ({ data, userSearch }: WeatherAppProps) => {
 
   return (
     <div className="">
-      <Navbar />
-      <Header weather={data} isOpen={isOpen} toggle={toggle} setShowModal={setShowModal} modalTitle={'Current Weather'} />
-      Latitude = {state.latitude}
+      {/* <Header weather={data} isOpen={isOpen} toggle={toggle} setShowModal={setShowModal} modalTitle={'Current Weather'} /> */}
       <LocationSearch onSearch={addLocation} setGeolocation={setGeoLocation} state={state} />
       <ErrorAlert message={error} />
       <WarningAlert message={warning} />

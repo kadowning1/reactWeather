@@ -5,6 +5,7 @@ import * as ga from '../lib/ga'
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { GoogleAnalytics, usePageViews } from 'nextjs-google-analytics';
+import Header from '../components/Header';
 
 const App = ({ Component, pageProps }: any) => {
   const router = useRouter()
@@ -39,6 +40,7 @@ const App = ({ Component, pageProps }: any) => {
 
       <ThemeProvider enableSystem={true} attribute='class'>
         <GoogleAnalytics />
+        <Header />
         <Component {...pageProps} />
       </ThemeProvider>
     </>

@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
+
 import { useState } from 'react';
 
 import Link from 'next/link';
@@ -15,9 +15,6 @@ export const Services = () => {
   };
   return (
     <div>
-      <div>
-        <Navbar />
-      </div>
       <div>
         <div className='text-2xl pb-2'>Services
         </div>

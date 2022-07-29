@@ -2,7 +2,6 @@ import { Weather, WeatherLocation } from '../model/Weather';
 
 const API_KEY: string = process.env.NEXT_PUBLIC_API_KEY || '';
 
-
 if (API_KEY === undefined) {
   console.log('No Open Weather API API_KEY defined - ensure you set a variable called REACT_APP_OPEN_WEATHER_API_API_KEY')
 }
@@ -15,8 +14,7 @@ export async function searchLocation(term: string): Promise<WeatherLocation | un
   if (result.cod === '404') {
     return undefined
   } else {
-    // console.log(result.error, 'result', result)
-    // console.log(process.env)
+ 
     return result
   }
 }
@@ -26,8 +24,7 @@ export async function getLatandLong(lat: number, long: number): Promise<WeatherL
   if (result.cod === '404') {
     return undefined
   } else {
-    // console.log(result.error, 'result', result)
-    // console.log(process.env)
+   
     return result
   }
 }

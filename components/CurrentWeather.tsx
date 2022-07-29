@@ -11,9 +11,7 @@ interface WeatherAppProps {
 }
 
 export const CurrentWeather = ({ data, location }: WeatherAppProps) => {
-  console.log(data)
-  console.log(location)
-
+  
   const mainConditions = location?.weather[0]?.main.toUpperCase();
   const description = location?.weather[0]?.description.toUpperCase();
   const icon = getIconUrl(location?.weather[0].icon as string);

@@ -1,29 +1,30 @@
-import { BadgeCheckIcon, BookmarkAltIcon, BookmarkIcon, MoonIcon, SearchCircleIcon, SunIcon } from '@heroicons/react/solid';
+import { BadgeCheckIcon, BookmarkAltIcon, BookmarkIcon, CollectionIcon, HomeIcon, LightningBoltIcon, MoonIcon, SearchCircleIcon, SearchIcon, SunIcon, UserIcon } from '@heroicons/react/solid';
 import { MyImage } from '../utils/Loader';
 import HeaderItem from './HeaderItem';
 import { DatabaseIcon } from '@heroicons/react/solid';
 import { isContext } from 'vm';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CurrentTime } from './CurrentTime';
 import { Weather } from '../model/Weather';
 import { useTheme } from 'next-themes';
 import { event } from 'nextjs-google-analytics';
 import { event_category, event_click } from '../lib/ga';
 import { useRouter } from 'next/router';
+import Navbar from './Navbar';
 
 
 interface WeatherEntryProps {
-  weather: Weather;
+  weather?: Weather;
   /**
   * Is Drawer open
   */
-  isOpen: boolean;
+  isOpen?: boolean;
   /**
    * Toggle Drawer open or closed
    */
-  toggle: () => void;
-  setShowModal: (showModal: boolean) => void;
-  modalTitle: string;
+  toggle?: () => void;
+  setShowModal?: (showModal: boolean) => void;
+  modalTitle?: string;
 }
 
 export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: WeatherEntryProps) => {
@@ -38,27 +39,23 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
     setMounted(true);
   }, [])
 
-  useEffect(() => {
-    const handleRouteChange = (category: string,
-      action: string,
-      label: string,
-      value: number,
-      search_term: string) => {
-      event_click(category, action, label='header-click', value, search_term=weather as unknown as string);
-      console.log('category', category)
-    }
 
+  const handleRouteChange = (category: string,
+    action: string,
+    label: string,
+  ) => {
+    event_click(category, action, label = 'header-click');
     router.events.on('routeChangeComplete', handleRouteChange)
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
-  }, [router.events, weather])
-
+  }
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     if (theme === 'light') {
+      handleRouteChange('search', 'dark-mode', 'search-bar');
       setTheme('dark');
       event("submit_form", {
         category: "Contact",
@@ -67,6 +64,7 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
     }
     else {
       setTheme('light');
+      handleRouteChange('search', 'light-mode', 'search-bar');
       event("submit_form", {
         category: "Contact",
         label: 'Switch to Dark Mode',
@@ -94,19 +92,18 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
   };
 
   return (
-    <header className='flex items-center p-4 justify-between'>
-
-      <div className='flex grid-cols-2'>
-        <div className=' hover:text-white px-4'>
-          {/* <CurrentTime weather={weather} /> */}
-          <p className='tracking-widest text-5xl'>
-            React Weather App
-          </p>
-        </div>
+    <header className='flex flex-col sm:flex-row m-5 justify-between items-center h-auto'>
+      <p className='tracking-widest text-5xl'>
+        React Weather App
+      </p>
+      <div className='px-4 flex flex-grow max-w-2xl justify-evenly'>
+        <Navbar title={'HOME'} icon={HomeIcon} href='/' />
+        <Navbar title={'ABOUT'} icon={LightningBoltIcon as any} href='/about' />
+        <Navbar title={'SERVICES'} icon={BadgeCheckIcon} href='/services' />
+        <Navbar title={'PRICING'} icon={CollectionIcon} href='/pricing' />
+        <Navbar title={'CONTACT'} icon={SearchIcon} href='/contact' />
       </div>
-      <div className='flex grid-flow-row'>
-        {renderThemeChanger()}
-      </div>
+      {renderThemeChanger()}
     </header>
   )
 };

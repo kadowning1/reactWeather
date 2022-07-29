@@ -2,6 +2,7 @@
 import Head from 'next/head'
 import Footer from '../components/Footer';
 import Forecast from '../components/Forecast';
+import Header from '../components/Header';
 import { WeatherEntryProps } from '../components/WeatherEntry';
 
 export default function Home({ weather }: WeatherEntryProps) {
@@ -12,10 +13,8 @@ export default function Home({ weather }: WeatherEntryProps) {
         <link rel='icon' href='/favicon.ico' />
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
       </Head>
-      <div className=''>
-        <Forecast data={weather} />
-        <Footer />
-      </div>
+      <Forecast data={weather} />
+      <Footer />
     </>
   );
 }

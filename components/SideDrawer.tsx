@@ -10,7 +10,7 @@ interface SideDrawerProps {
 }
 
 export default function SideDrawer({ children, isOpen, toggle, weather }: SideDrawerProps) {
-  // console.log(weather)
+ 
   return (
     <div
       className={

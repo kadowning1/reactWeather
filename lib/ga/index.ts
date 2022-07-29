@@ -18,16 +18,14 @@ export const event_action = (action: string) => {
 
 export const event_click = (
   category: string,
-  action: string,
-  label: string,
-  value: number,
-  search_term: string,
+  action?: string,
+  label?: string,
+  search_term?: string,
 ) => {
   window.gtag('event', 'event_click', {
     event_category: category,
     event_action: action,
     event_label: label,
-    value: value,
     search_term: search_term,
   });
 };

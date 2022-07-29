@@ -1,7 +1,6 @@
 import { useState } from 'react'
 // import { event } from "nextjs-google-analytics";
 import Link from 'next/link';
-import Navbar from '../components/Navbar';
 
 export const Contact = () => {
   const [message, setMessage] = useState("");
@@ -23,9 +22,7 @@ export const Contact = () => {
 
   return (
     <div className='bg-slate-400 dark:bg-slate-200'>
-      <div>
-        <Navbar />
-      </div>
+    
       <h1 className='text-center'>This is the Contact page</h1>
       <div className='flex flex-col items-center justify-center h-screen mb-3 xl:w-96'>
         <form onSubmit={handleSubmit} className=''>
