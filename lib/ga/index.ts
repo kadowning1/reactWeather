@@ -8,21 +8,21 @@ export const form_event = (eventName: string, userData: string) => {
   window.gtag('event', eventName, {
     user_data: userData,
   });
-}
-
-export const event_click = (
-  category: string,
-  action?: string,
-  label?: string,
-  search_term?: string,
-) => {
-  window.gtag('event', 'event_click', {
-    event_category: category,
-    event_action: action,
-    event_label: label,
-    search_term: search_term,
-  });
 };
+
+// export const event_click = (
+//   category: string,
+//   action?: string,
+//   label?: string,
+//   search_term?: string
+// ) => {
+//   window.gtag('event', 'event_click', {
+//     event_category: category,
+//     event_action: action,
+//     event_label: label,
+//     search_term: search_term,
+//   });
+// };
 
 export const event = (
   action: Gtag.EventNames,

@@ -7,11 +7,9 @@ import React, { useEffect, useState } from 'react';
 import { CurrentTime } from './CurrentTime';
 import { Weather } from '../model/Weather';
 import { useTheme } from 'next-themes';
-import { event_click } from '../lib/ga';
+// import { event_click } from '../lib/ga';
 import { useRouter } from 'next/router';
-import Navbar from './Navbar';
 import Link from 'next/link';
-import TagManager from 'react-gtm-module'
 
 interface WeatherEntryProps {
   weather?: Weather; // the weather data
@@ -36,34 +34,34 @@ export const Header = () => {
     }
   }
 
-  TagManager.initialize(tagManagerArgs)
+
 
   useEffect(() => {
     setMounted(true);
   }, [])
 
 
-  const handleRouteChange = (category: string,
-    action: string,
-    label: string,
-  ) => {
-    event_click(category, action, label);
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }
+  // const handleRouteChange = (category: string,
+  //   action: string,
+  //   label: string,
+  // ) => {
+  //   event_click(category, action, label);
+  //   router.events.on('routeChangeComplete', handleRouteChange)
+  //   return () => {
+  //     router.events.off('routeChangeComplete', handleRouteChange)
+  //   }
+  // }
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     if (theme === 'light') {
-      handleRouteChange('search', 'dark-mode', 'search-bar');
+      // handleRouteChange('search', 'dark-mode', 'search-bar');
       setTheme('dark');
     }
     else {
       setTheme('light');
-      handleRouteChange('search', 'light-mode', 'search-bar');
+      // handleRouteChange('search', 'light-mode', 'search-bar');
     }
   };
 
@@ -93,14 +91,14 @@ export const Header = () => {
           React Weather App
         </p>
       </Link>
-      <div className='px-4 flex flex-grow max-w-2xl justify-evenly'>
-        <Navbar title={'HOME'} icon={HomeIcon} href='/' />
-        <Navbar title={'ABOUT'} icon={LightningBoltIcon as any} href='/about' />
-        <Navbar title={'SERVICES'} icon={BadgeCheckIcon} href='/services' />
-        <Navbar title={'PRICING'} icon={CollectionIcon} href='/pricing' />
-        <Navbar title={'CONTACT'} icon={SearchIcon} href='/contact' />
+      <div className='flex flex-grow justify-evenly'>
+        <HeaderItem title={'HOME'} icon={HomeIcon} href='/' />
+        <HeaderItem title={'ABOUT'} icon={LightningBoltIcon} href='/about' />
+        <HeaderItem title={'SERVICES'} icon={BadgeCheckIcon} href='/services' />
+        <HeaderItem title={'PRICING'} icon={CollectionIcon} href='/pricing' />
+        <HeaderItem title={'CONTACT'} icon={SearchIcon} href='/contact' />
+        {renderThemeChanger()}
       </div>
-      {renderThemeChanger()}
     </header>
   )
 };

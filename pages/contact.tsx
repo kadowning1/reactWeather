@@ -1,7 +1,7 @@
 import { useState } from 'react'
 // import { event } from "nextjs-google-analytics";
 import Link from 'next/link';
-import { event_click } from '../lib/ga';
+// import { event_click } from '../lib/ga';
 import { useRouter } from 'next/router';
 
 export const Contact = () => {
@@ -12,20 +12,20 @@ export const Contact = () => {
     setMessage(e.target.value);
   };
 
-  const handleRouteChange = (category: string,
-    action: string,
-    search_term: string,
-  ) => {
-    event_click(category, action, search_term);
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }
+  // const handleRouteChange = (category: string,
+  //   action: string,
+  //   search_term: string,
+  // ) => {
+  //   event_click(category, action, search_term);
+  //   router.events.on('routeChangeComplete', handleRouteChange)
+  //   return () => {
+  //     router.events.off('routeChangeComplete', handleRouteChange)
+  //   }
+  // }
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    handleRouteChange('search', 'search-field', message);
+    // handleRouteChange('search', 'search-field', message);
     setMessage("");
   };
 

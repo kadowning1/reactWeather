@@ -2,28 +2,28 @@ import { SetStateAction, useState } from "react";
 // import Page from "../components/Page";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { event_click } from '../lib/ga';
+// import { event_click } from '../lib/ga';
 
 export function Contact() {
   const [message, setMessage] = useState("");
 
   const router = useRouter();
 
-  const handleRouteChange = (category: string,
-    action: string,
-    label: string,
-  ) => {
-    event_click(category, action, label = 'header-click');
-    router.events.on('routeChangeComplete', handleRouteChange)
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange)
-    }
-  }
+  // const handleRouteChange = (category: string,
+  //   action: string,
+  //   label: string,
+  // ) => {
+  //   event_click(category, action, label = 'header-click');
+  //   router.events.on('routeChangeComplete', handleRouteChange)
+  //   return () => {
+  //     router.events.off('routeChangeComplete', handleRouteChange)
+  //   }
+  // }
   
 
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     console.log(message + " was submitted");
-    handleRouteChange('search', 'search-field', message);
+    // handleRouteChange('search', 'search-field', message);
     e.preventDefault();
     setMessage("");
   };
