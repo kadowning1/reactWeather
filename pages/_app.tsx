@@ -4,23 +4,29 @@ import Script from 'next/script';
 import * as ga from '../lib/ga'
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { GoogleAnalytics, usePageViews } from 'nextjs-google-analytics';
 import Header from '../components/Header';
+import TagManager from 'react-gtm-module';
 
 const App = ({ Component, pageProps }: any) => {
-  const router = useRouter()
-
-  usePageViews();
+  const router = useRouter();
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       ga.pageview(url)
     }
 
+    if (typeof window !== 'undefined') {
+      console.log("init GTM")
+      TagManager.initialize({ gtmId: 'GTM-WHKQ4PS' });
+    } else {
+      console.log("GTM server side - ignorning")
+    }
+
     router.events.on('routeChangeComplete', handleRouteChange)
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
     }
+
   }, [router.events])
 
   const key: string = process.env.NEXT_PUBLIC_GA_ID || '';
@@ -39,7 +45,6 @@ const App = ({ Component, pageProps }: any) => {
       </Script>
 
       <ThemeProvider enableSystem={true} attribute='class'>
-        <GoogleAnalytics />
         <Header />
         <Component {...pageProps} />
       </ThemeProvider>

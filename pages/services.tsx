@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useState } from 'react';
+import { form_event } from '../lib/ga';
 
 import Link from 'next/link';
 
@@ -8,15 +9,23 @@ export const Services = () => {
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
+  const analytics = (
+  ) => {
+    form_event('form-submit', userName);
+  }
+
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+    console.log(userName + " was submitted");
+    // analytics();
     setUserName("");
     setUserPassword("");
   };
   return (
-    <div>
+    <div className='justify-center m-7'>
       <div>
-        <div className='text-2xl pb-2'>Services
+        <div className='text-2xl pb-2'>
+          Services
         </div>
         <div className="w-full max-w-xs">
           <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>

@@ -1,28 +1,37 @@
 import { useState } from 'react'
 // import { event } from "nextjs-google-analytics";
 import Link from 'next/link';
+import { event_click } from '../lib/ga';
+import { useRouter } from 'next/router';
 
 export const Contact = () => {
   const [message, setMessage] = useState("");
+  const router = useRouter();
 
   const handleInput = (e: { target: { value: any; }; }) => {
     setMessage(e.target.value);
   };
 
+  const handleRouteChange = (category: string,
+    action: string,
+    search_term: string,
+  ) => {
+    event_click(category, action, search_term);
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }
+
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-
-    // event("submit_form", {
-    //   category: "Contact",
-    //   label: message,
-    // });
-
+    handleRouteChange('search', 'search-field', message);
     setMessage("");
   };
 
   return (
     <div className='bg-slate-400 dark:bg-slate-200'>
-    
+
       <h1 className='text-center'>This is the Contact page</h1>
       <div className='flex flex-col items-center justify-center h-screen mb-3 xl:w-96'>
         <form onSubmit={handleSubmit} className=''>

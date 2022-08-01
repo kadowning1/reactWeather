@@ -7,33 +7,36 @@ import React, { useEffect, useState } from 'react';
 import { CurrentTime } from './CurrentTime';
 import { Weather } from '../model/Weather';
 import { useTheme } from 'next-themes';
-import { event } from 'nextjs-google-analytics';
-import { event_category, event_click } from '../lib/ga';
+import { event_click } from '../lib/ga';
 import { useRouter } from 'next/router';
 import Navbar from './Navbar';
-
+import Link from 'next/link';
+import TagManager from 'react-gtm-module'
 
 interface WeatherEntryProps {
-  weather?: Weather;
-  /**
-  * Is Drawer open
-  */
-  isOpen?: boolean;
-  /**
-   * Toggle Drawer open or closed
-   */
-  toggle?: () => void;
-  setShowModal?: (showModal: boolean) => void;
-  modalTitle?: string;
+  weather?: Weather; // the weather data
+  isOpen?: boolean;  // is the side drawer open
+  toggle?: () => void; // toggle the drawer open or closed
+  setShowModal?: (showModal: boolean) => void; // toggle the modal
+  modalTitle?: string;  // the title of the modal
 }
 
-export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: WeatherEntryProps) => {
+export const Header = () => {
 
   const { systemTheme, theme, setTheme } = useTheme();
 
   const [mounted, setMounted] = useState(false);
 
   const router = useRouter();
+
+  const tagManagerArgs = {
+    gtmId: 'GTM-WHKQ4PS',
+    events: {
+      sendUserInfo: 'userInfo'
+    }
+  }
+
+  TagManager.initialize(tagManagerArgs)
 
   useEffect(() => {
     setMounted(true);
@@ -44,7 +47,7 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
     action: string,
     label: string,
   ) => {
-    event_click(category, action, label = 'header-click');
+    event_click(category, action, label);
     router.events.on('routeChangeComplete', handleRouteChange)
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange)
@@ -57,18 +60,10 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
     if (theme === 'light') {
       handleRouteChange('search', 'dark-mode', 'search-bar');
       setTheme('dark');
-      event("submit_form", {
-        category: "Contact",
-        label: 'Switch to Dark Mode',
-      });
     }
     else {
       setTheme('light');
       handleRouteChange('search', 'light-mode', 'search-bar');
-      event("submit_form", {
-        category: "Contact",
-        label: 'Switch to Dark Mode',
-      });
     }
   };
 
@@ -93,9 +88,11 @@ export const Header = ({ weather, isOpen, toggle, setShowModal, modalTitle }: We
 
   return (
     <header className='flex flex-col sm:flex-row m-5 justify-between items-center h-auto'>
-      <p className='tracking-widest text-5xl'>
-        React Weather App
-      </p>
+      <Link href='/'>
+        <p className='tracking-widest text-5xl'>
+          React Weather App
+        </p>
+      </Link>
       <div className='px-4 flex flex-grow max-w-2xl justify-evenly'>
         <Navbar title={'HOME'} icon={HomeIcon} href='/' />
         <Navbar title={'ABOUT'} icon={LightningBoltIcon as any} href='/about' />

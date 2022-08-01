@@ -4,17 +4,11 @@ export const pageview = (url: string) => {
   });
 };
 
-export const event_category = (category: string) => {
-  window.gtag('event', 'event_category', {
-    event_category: category,
+export const form_event = (eventName: string, userData: string) => {
+  window.gtag('event', eventName, {
+    user_data: userData,
   });
-};
-
-export const event_action = (action: string) => {
-  window.gtag('event', 'event_action', {
-    event_action: action,
-  });
-};
+}
 
 export const event_click = (
   category: string,
