@@ -63,7 +63,7 @@ export const Contact = () => {
           />
 
           <Link href={'/'}>
-            <button type="submit" className="  bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit} >
+            <button type="submit" className="  bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" onClick={handleSubmit} id='contact_form'>
               Submit
             </button>
           </Link>
